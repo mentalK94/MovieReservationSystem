@@ -6,18 +6,24 @@ package app;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 
-import model.Booker;
 import model.Menu;
 import model.Movie;
+import type.MenuType;
 import type.MovieGenreType;
 import type.MovieRatingType;
 
 public class MovieReservationApp {
 	private HashMap<String, String> bookers; // 영화번호, 예약자 코드
 	private ArrayList<Movie> movies; // 영화 리스트	
+	private MenuType choiceMenu; // 메뉴 선택
+	private int choiceNumber;
+	private Scanner scanner; // 입력받기위한 Scanner 클래스
 	
 	public void init() { // 기본 세팅
+		
+		scanner = new Scanner(System.in);
 		/* 제목, 장르, 등급 */
 		Movie movie1 = new Movie("US0001", "알라딘", MovieGenreType.ADVENTURE, MovieRatingType.ALL); // 알라딘
 		Movie movie2 = new Movie("US0002", "토이 스토리 4",MovieGenreType.ADVENTURE, MovieRatingType.ALL); // 토이스토리 4
@@ -34,7 +40,30 @@ public class MovieReservationApp {
 		// 1. 메뉴 출력
 		Menu.showMenu();
 		
-		// 2. 
+		// 2. 메뉴 선택
+		choiceNumber = scanner.nextInt();
+		choiceMenu = Menu.choiceMenu(choiceNumber);
+		
+		if(choiceMenu != null) {
+			switch(choiceMenu) {
+			case RESERVATION: { // 예약 기능
+				break;
+			}
+			case SHOWALL: { // 전체조회 기능
+				break;
+			}
+			case SHOWINDIVIDUAL: { // 개인조회 기능
+				break;
+			}
+			case CANCEL: { // 예약취소 기능
+				break;
+			}
+			case EXIT: { // 종료 기능
+				break;
+			}
+			}
+		}
+		
 	}
 	
 	public HashMap<String, String> getBookers() {
