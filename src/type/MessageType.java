@@ -1,7 +1,7 @@
 package type;
 
 public enum MessageType {
-	ERROR("입력 오류입니다.."), INPUT("예약번호를 입력하세요 : "), SELECTMOVIE("영화를 선택하세요"), 
+	ERROR("입력 오류입니다.."), INPUT("예약번호를 입력하세요 : "), SELECTMOVIE("영화를 선택하세요 "), 
 	SELECTSEATTYPE("좌석구분 S(1), A(2), B(3)"), SELECTSEATNUMBER("좌석번호를 입력하세요 >> "),
 	SUCCEEDRESERVATION("예매가 성공적으로 완료되었습니다."), FAILRESERVATION("예매이 취소되었습니다."),
 	SUCCEEDSHOW("조회를 완료했습니다."), FAILSHOW("조회를 실패했습니다."),

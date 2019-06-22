@@ -39,6 +39,9 @@ public class MovieReservationApp {
 	}
 
 	public void run() { // 앱 실행
+		// 0. 프로그램 실행 메시지
+		Message.showMessage(MessageType.RUN);
+		
 		// 1. 메뉴 출력
 		Menu.showMenu();
 		
@@ -49,26 +52,70 @@ public class MovieReservationApp {
 		if(choiceMenu != null) {
 			switch(choiceMenu) {
 			case RESERVATION: { // 예약 기능
+				reservation();
 				break;
 			}
 			case SHOWALL: { // 전체조회 기능
+				showSeatsAll();
 				break;
 			}
 			case SHOWINDIVIDUAL: { // 개인조회 기능
+				showSeatsIndividual();
 				break;
 			}
 			case CANCEL: { // 예약취소 기능
+				cancel();
 				break;
 			}
 			case EXIT: { // 종료 기능
-				
+				Message.showMessage(MessageType.EXIT); // 프로그램 종료 메시지
+				System.exit(0); // 프로그램 종료
 				break;
 			}
 			}
 		} else {
-			Message.showMessage(MessageType.ERROR);
+			Message.showMessage(MessageType.ERROR);  // 입력 에러 메시지 
 		}
 		
+	}
+	
+	public void cancel() { // 예매 취소기능 구현
+		
+	}
+
+	public void showSeatsIndividual() { // 개인좌석 조회 기능 구현
+		
+	}
+
+	public void showSeatsAll() { // 전체좌석 조회 기능 구현
+		
+	}
+
+	public void reservation() { // 예약 기능 구현
+		
+		// 1. 영화 선택
+		// 2. 예매자 수 입력
+		// 3. 좌석 타입 선택
+		// 4. 좌석 타입에 맞는 현황 출력
+		// 5. 좌석 번호 선택
+		// 6. 예매자 입력
+		// 7. 예매 완료 출력
+	}
+
+	public String selectMovie() { // 영화 선택 기능 구현
+		
+		int selectMovieIndex = -1; // 선택한 영화 인덱스 번호
+		Message.showMessage(MessageType.SELECTMOVIE);
+		Message.showFromString("\n");
+		for(int i=0; i<movies.size(); i++) {
+			Message.showFromString("[" + i + "]");
+			movies.get(i).showMovieFromOrder();
+		}
+		
+		Message.showMessage(MessageType.SELECTMOVIE);
+		selectMovieIndex = scanner.nextInt(); // 영화 인덱스 입력
+		
+		return movies.get(selectMovieIndex).getCode(); // 선택한 영화 코드 리턴
 	}
 	
 	public HashMap<String, String> getBookers() {

@@ -4,18 +4,18 @@ import type.MovieGenreType;
 import type.MovieRatingType;
 
 public class Movie {
-	private String order; // 영화번호
+	private String code; // 영화코드
 	private String title; // 영화제목
 	private MovieGenreType genre; // 영화장르
 	private MovieRatingType rating; // 영화등급
 
-	public Movie(String order, String title, MovieGenreType genre, MovieRatingType rating) {
+	public Movie(String code, String title, MovieGenreType genre, MovieRatingType rating) {
 		super();
-		this.order = order;
+		this.code = code;
 		this.title = title;
 		this.genre = genre;
 		this.rating = rating;
-		System.out.println(order + " : " + order + ", "+ genre.getName() +", " + rating.getName());
+		System.out.println(code + " : " + title + ", "+ genre.getName() +", " + rating.getName());
 	}
 
 	public String getTitle() {
@@ -42,16 +42,26 @@ public class Movie {
 		this.rating = rating;
 	}
 
-	public String getOrder() {
-		return order;
+	public String getCode() {
+		return code;
 	}
 
-	public void setOrder(String order) {
-		this.order = order;
+	public void setCode(String code) {
+		this.code = code;
 	}
 	
 	public Movie getMovieFromOrder(String order) {
 		return this;
 	}
+	
+	public void showMovieFromOrder() {
+		Message.showFromString("************************");
+		Message.showFromString(this.title);
+		Message.showFromString("장르 : " + this.genre.getName());
+		Message.showFromString("등급 : " + this.rating.getName());
+		Message.showFromString("************************");
+		Message.showFromString("\n");
+	}
+	
 
 }

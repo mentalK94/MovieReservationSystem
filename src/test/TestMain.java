@@ -4,6 +4,7 @@ package test;
 
 import generator.BookNumberGenerator;
 import model.Menu;
+import model.Message;
 
 public class TestMain {
 
@@ -16,7 +17,7 @@ public class TestMain {
 		
 		/* Menu Show Test 완료*/
 //		Menu.showMenu();
-		
+
 	}
 
 }
