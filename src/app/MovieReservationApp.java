@@ -11,31 +11,23 @@ import java.util.Scanner;
 import model.Menu;
 import model.Message;
 import model.Movie;
+import model.MovieReservation;
 import type.MenuType;
 import type.MessageType;
 import type.MovieGenreType;
 import type.MovieRatingType;
 
 public class MovieReservationApp {
-	private HashMap<String, String> bookers; // 영화번호, 예약자 코드
-	private ArrayList<Movie> movies; // 영화 리스트	
+	
 	private MenuType choiceMenu; // 메뉴 선택
 	private int choiceNumber;
 	private Scanner scanner; // 입력받기위한 Scanner 클래스
+	private MovieReservation movieReservation;
 	
 	public void init() { // 기본 세팅
 		
 		scanner = new Scanner(System.in);
-		/* 제목, 장르, 등급 */
-		Movie movie1 = new Movie("US0001", "알라딘", MovieGenreType.ADVENTURE, MovieRatingType.ALL); // 알라딘
-		Movie movie2 = new Movie("US0002", "토이 스토리 4",MovieGenreType.ADVENTURE, MovieRatingType.ALL); // 토이스토리 4
-		Movie movie3 = new Movie("KR0001", "기생충", MovieGenreType.DRAMA, MovieRatingType.FIFEEN); // 기생충
-		Movie movie4 = new Movie("KR0002", "롱 리브 더 킹 : 목포 영웅",MovieGenreType.ACTION, MovieRatingType.FIFEEN); // 롱 리브 더 킹 : 목포 영웅
-		
-		movies.add(movie1);
-		movies.add(movie2);
-		movies.add(movie3);
-		movies.add(movie4);		
+		movieReservation = new MovieReservation();
 	}
 
 	public void run() { // 앱 실행
@@ -94,7 +86,19 @@ public class MovieReservationApp {
 	public void reservation() { // 예약 기능 구현
 		
 		// 1. 영화 선택
+		String movieCode = selectMovie();
+		if(movieCode == null) {
+			Message.showMessage(MessageType.ERROR);
+			return;
+		}
+		
 		// 2. 예매자 수 입력
+		int number = inputNumber();
+		if(number == -1) {
+			Message.showMessage(MessageType.ERROR);
+			return;
+		}
+		
 		// 3. 좌석 타입 선택
 		// 4. 좌석 타입에 맞는 현황 출력
 		// 5. 좌석 번호 선택
@@ -103,35 +107,31 @@ public class MovieReservationApp {
 	}
 
 	public String selectMovie() { // 영화 선택 기능 구현
+		ArrayList<Movie> movies = movieReservation.getMovies();
 		
 		int selectMovieIndex = -1; // 선택한 영화 인덱스 번호
-		Message.showMessage(MessageType.SELECTMOVIE);
+		Message.showMessage(MessageType.MOVIELIST);
 		Message.showFromString("\n");
 		for(int i=0; i<movies.size(); i++) {
 			Message.showFromString("[" + i + "]");
 			movies.get(i).showMovieFromOrder();
 		}
 		
-		Message.showMessage(MessageType.SELECTMOVIE);
+		Message.showInputMessage(MessageType.SELECTMOVIE);
 		selectMovieIndex = scanner.nextInt(); // 영화 인덱스 입력
 		
-		return movies.get(selectMovieIndex).getCode(); // 선택한 영화 코드 리턴
+		if(selectMovieIndex >= 0 && selectMovieIndex < movies.size())
+			return movies.get(selectMovieIndex).getCode(); // 선택한 영화 코드 리턴
+		else return null; // 제대로 선택하지 않은 경우
 	}
 	
-	public HashMap<String, String> getBookers() {
-		return bookers;
-	}
-
-	public void setBookers(HashMap<String, String> bookers) {
-		this.bookers = bookers;
-	}
-
-	public ArrayList<Movie> getMovies() {
-		return movies;
-	}
-
-	public void setMovies(ArrayList<Movie> movies) {
-		this.movies = movies;
+	public int inputNumber() {
+		Message.showInputMessage(MessageType.INPUTRESERVATIONNUMBER); // 예약 인원 수 입력
+		int number = scanner.nextInt();
+		if(number >= 1 && number <= 4)
+			return number;
+		else return -1;
 	}
 	
+
 }

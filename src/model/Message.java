@@ -8,6 +8,10 @@ public class Message {
 		System.out.println(messageType.getMessage());
 	}
 	
+	public static void showInputMessage(MessageType messageType) {
+		System.out.print(messageType.getMessage());
+	}
+	
 	public static void showFromString(String message) {
 		System.out.println(message);
 	}
