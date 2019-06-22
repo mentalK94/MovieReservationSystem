@@ -1,0 +1,5 @@
+package type;
+
+public enum MovieGenreType {
+	COMEDY, ADVENTURE, ACTION, DRAMA, THRILLER, HORROR, MUSICAL, ROMANCE, DOCUMENTARY
+}
