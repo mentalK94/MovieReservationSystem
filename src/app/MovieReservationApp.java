@@ -9,8 +9,10 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 import model.Menu;
+import model.Message;
 import model.Movie;
 import type.MenuType;
+import type.MessageType;
 import type.MovieGenreType;
 import type.MovieRatingType;
 
@@ -59,9 +61,12 @@ public class MovieReservationApp {
 				break;
 			}
 			case EXIT: { // 종료 기능
+				
 				break;
 			}
 			}
+		} else {
+			Message.showMessage(MessageType.ERROR);
 		}
 		
 	}
