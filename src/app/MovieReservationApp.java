@@ -5,32 +5,29 @@
 package app;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Scanner;
 
+import impl.TheaterManagerImpl;
 import model.Menu;
 import model.Message;
 import model.Movie;
-import model.MovieReservation;
 import type.MenuType;
 import type.MessageType;
-import type.MovieGenreType;
-import type.MovieRatingType;
 
 public class MovieReservationApp {
 	
-	private MenuType choiceMenu; // 메뉴 선택
-	private int choiceNumber;
 	private Scanner scanner; // 입력받기위한 Scanner 클래스
-	private MovieReservation movieReservation;
+	private TheaterManagerImpl theaterManager;
 	
 	public void init() { // 기본 세팅
-		
-		scanner = new Scanner(System.in);
-		movieReservation = new MovieReservation();
+				
+		theaterManager = new TheaterManagerImpl();
+		theaterManager.init();
 	}
 
 	public void run() { // 앱 실행
+		
+		scanner = new Scanner(System.in);
 		// 0. 프로그램 실행 메시지
 		Message.showMessage(MessageType.RUN);
 		
@@ -38,8 +35,8 @@ public class MovieReservationApp {
 		Menu.showMenu();
 		
 		// 2. 메뉴 선택
-		choiceNumber = scanner.nextInt();
-		choiceMenu = Menu.choiceMenu(choiceNumber);
+		int choiceNumber = scanner.nextInt();
+		MenuType choiceMenu = Menu.choiceMenu(choiceNumber);
 		
 		if(choiceMenu != null) {
 			switch(choiceMenu) {
@@ -80,7 +77,11 @@ public class MovieReservationApp {
 	}
 
 	public void showSeatsAll() { // 전체좌석 조회 기능 구현
-		
+		Message.showMessage(MessageType.SELECTMOVIE);
+		int selectMovie = scanner.nextInt();
+		if(selectMovie >= 1 && selectMovie <= theaterManager.getMovies().size())  // 영화선택 제대로 입력했는지 검사
+			theaterManager.showAll((selectMovie-1)); // showAll 호출
+		else Message.showMessage(MessageType.ERROR);
 	}
 
 	public void reservation() { // 예약 기능 구현
@@ -107,7 +108,7 @@ public class MovieReservationApp {
 	}
 
 	public String selectMovie() { // 영화 선택 기능 구현
-		ArrayList<Movie> movies = movieReservation.getMovies();
+		ArrayList<Movie> movies = theaterManager.getMovies();
 		
 		int selectMovieIndex = -1; // 선택한 영화 인덱스 번호
 		Message.showMessage(MessageType.MOVIELIST);

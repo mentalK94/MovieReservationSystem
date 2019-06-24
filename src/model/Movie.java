@@ -15,7 +15,7 @@ public class Movie {
 		this.title = title;
 		this.genre = genre;
 		this.rating = rating;
-		System.out.println(code + " : " + title + ", "+ genre.getName() +", " + rating.getName());
+		System.out.println(code + " : " + "[" + title + "]" + ", "+ genre.getName() +", " + rating.getName());
 	}
 
 	public String getTitle() {

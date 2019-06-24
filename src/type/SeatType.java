@@ -1,7 +1,7 @@
 package type;
 
 public enum SeatType {
-	S("S석"), A("A석"), B("B석"), NONEMPTY("■"), EMPTY("□");
+	S("S석"), A("A석"), B("B석"), SEATED("■"), EMPTY("□"), EMPTYINDIVIDUAL("---"), SEATEDINDIVIDUAL("###");
 	
 	private String name;
 	

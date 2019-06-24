@@ -4,12 +4,12 @@ package generator;
 
 import java.util.Random;
 
-public class BookNumberGenerator {
+public class BookCodeGenerator {
 	
 	private final static int NUMBERDIGITS = 8; // 예약번호 자리수
 	private String bookNumber; // 예약번호
 	
-	public BookNumberGenerator() { // 예약번호 생성
+	public BookCodeGenerator() { // 예약번호 생성
 		StringBuffer number = new StringBuffer();
 		Random random = new Random();
 		

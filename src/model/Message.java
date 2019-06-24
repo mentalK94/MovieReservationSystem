@@ -15,4 +15,8 @@ public class Message {
 	public static void showFromString(String message) {
 		System.out.println(message);
 	}
+	
+	public static void showFromString2(String message) {
+		System.out.print(message);
+	}
 }
