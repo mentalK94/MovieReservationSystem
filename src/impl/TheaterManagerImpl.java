@@ -43,8 +43,19 @@ public class TheaterManagerImpl {
 	}
 
 	// 영화 전체 좌석 조회 기능 구현
-	public void showAll(int movieIndex) {
+	public void showAll(String movieCode) {
+		
+		int movieIndex = -1;
+		for(int i=0; i<theaters.size(); i++) {
+			if(theaters.get(i).getMovie().getCode().equals(movieCode))
+				movieIndex = i;
+		}
 
+		if(movieIndex == -1) {
+			Message.showMessage(MessageType.ERROR);
+			return;
+		}
+		
 		// "" 영화 조회입니다 메시지 출력
 		String movieTitle = theaters.get(movieIndex).getMovie().getTitle();
 		Message.showFromString("[제" + (movieIndex + 1) + "영화관] " + movieTitle + " 좌석 현황입니다");
@@ -130,43 +141,50 @@ public class TheaterManagerImpl {
 	// }
 
 	// 영화 예매 기능 구현
-	public void reservation(int movieIndex, Booker booker, SeatType seatType) {
+	public void reservation(String movieCode, Booker booker) {
 
 		int numOfBooker = booker.getNumberOfBookers(); // 예매자 수
-
+		int movieIndex = -1;
+		for(int i=0; i<theaters.size(); i++) {
+			if(theaters.get(i).getMovie().getCode().equals(movieCode)) {
+				movieIndex = i;
+			}
+		}
+		
 		for (int i = 0; i < numOfBooker; i++) {
 			SeatType sType = booker.getSeatType(i); // 좌석 타입
-			int row = (booker.getSeatNumber(i) / 10) - 1; // 좌석 열 번호
-			int column = (booker.getSeatNumber(i) % 10) - 1; // 좌석 행 번호
+			
+			int row = ((booker.getSeatNumber(i)-1) / 10); // 좌석 열 번호
+			int column = ((booker.getSeatNumber(i)-1) % 10); // 좌석 행 번호
 
 			switch (sType) {
 			case S: {
-				if (theaters.get(movieIndex).isSseatEmpty(row, column)) { // 좌석이 이미 있는 경우
-					Message.showMessage(MessageType.ALREADYSEATS);
-					return;
-				} else { // 빈 자리인 경우 : booker를 Theater리스트에 추가, 좌석현황 변경
+				if (theaters.get(movieIndex).isSseatEmpty(row, column)) { // 빈 자리인 경우 : booker를 Theater리스트에 추가, 좌석현황 변경
 					theaters.get(movieIndex).addBooker(booker);
 					theaters.get(movieIndex).setSeat(booker.getName(), sType, row, column);
+				} else { // 좌석이 이미 있는 경우
+					Message.showMessage(MessageType.ALREADYSEATS);
+					return;
 				}
 				break;
 			}
 			case A: {
-				if (theaters.get(movieIndex).isAseatEmpty(row, column)) { // 좌석이 이미 있는 경우
-					Message.showMessage(MessageType.ALREADYSEATS);
-					return;
-				} else { // 빈 자리인 경우 : booker를 Theater리스트에 추가, 좌석현황 변경
+				if (theaters.get(movieIndex).isAseatEmpty(row, column)) { // 빈 자리인 경우 : booker를 Theater리스트에 추가, 좌석현황 변경		
 					theaters.get(movieIndex).addBooker(booker);
 					theaters.get(movieIndex).setSeat(booker.getName(), sType, row, column);
+				} else { // 좌석이 이미 있는 경우		
+					Message.showMessage(MessageType.ALREADYSEATS);
+					return;
 				}
 				break;
 			}
 			case B: {
-				if (theaters.get(movieIndex).isBseatEmpty(row, column)) { // 좌석이 이미 있는 경우
+				if (theaters.get(movieIndex).isBseatEmpty(row, column)) { // 빈 자리인 경우 : booker를 Theater리스트에 추가, 좌석현황 변경
+					theaters.get(movieIndex).addBooker(booker);
+					theaters.get(movieIndex).setSeat(booker.getName(), sType, row, column);					
+				} else { // 좌석이 이미 있는 경우	
 					Message.showMessage(MessageType.ALREADYSEATS);
 					return;
-				} else { // 빈 자리인 경우 : booker를 Theater리스트에 추가, 좌석현황 변경
-					theaters.get(movieIndex).addBooker(booker);
-					theaters.get(movieIndex).setSeat(booker.getName(), sType, row, column);
 				}
 				break;
 			}

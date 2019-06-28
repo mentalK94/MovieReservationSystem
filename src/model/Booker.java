@@ -9,12 +9,12 @@ public class Booker {
 	private SeatType seatType[]; // 예약자 좌석 타입
 	private Integer seatNumber[]; // 예약자 좌석 번호
 	private String bookNumber; // 예약번호
-	private int numberOfBookers; // 예약 명 수
+	private int numberOfBookers; // 예약자수
 
 	public Booker(int number) { 
-		this.numberOfBookers = number;
-		this.seatNumber = new Integer[number];
-		this.seatType = new SeatType[number];
+		this.numberOfBookers = number;  // 예약자수
+		this.seatNumber = new Integer[number]; // 예약자 수에 맞게 좌석번호 배열 할당
+		this.seatType = new SeatType[number]; // 예약자 수에 맞게 좌석유형 배열 할당
 	}
 	
 	public int getNumberOfBookers() {

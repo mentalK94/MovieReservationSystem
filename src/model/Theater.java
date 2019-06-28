@@ -37,6 +37,7 @@ public class Theater {
 		sSeats = new String[S_ROW_SEAT][S_COLUMN_SEAT];  // 1 x 10 좌석 할당
 		aSeats = new String[A_ROW_SEAT][A_COLUMN_SEAT];  // 4 x 10 좌석 할당
 		bSeats = new String[B_ROW_SEAT][B_COLUMN_SEAT];  // 5 x 10 좌석 할당
+		bookers = new ArrayList<Booker>();
 	}
 
 	public Movie getMovie() {
